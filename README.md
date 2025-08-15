@@ -1,56 +1,135 @@
 
-# Supervised Learning
-## Project: Finding Donors for CharityML
+# Finding Donors for CharityML
+*A Machine Learning Project for Predicting Income Levels*
 
-### Install
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-This project requires **Python 3.x** and the following Python libraries installed:
+## Project Overview
 
-- [NumPy](http://www.numpy.org/)
-- [Pandas](http://pandas.pydata.org)
-- [matplotlib](http://matplotlib.org/)
-- [scikit-learn](http://scikit-learn.org/stable/)
+This project applies supervised learning techniques to help CharityML (a fictitious charity organization) identify individuals most likely to donate based on census data. Using machine learning algorithms, we predict whether an individual makes more than $50,000 annually to optimize donation solicitation strategies.
 
-You will also need to have software installed to run and execute an [iPython Notebook](http://ipython.org/notebook.html)
+## Key Results
 
-We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
+- **Best Model**: Gradient Boosting Classifier
+- **Accuracy**: 86.9% on test data
+- **F-score**: 74.8% (β = 0.5)
+- **Top Predictive Features**: Age, Education, Capital Gains, Hours per Week, Marital Status
 
-### Code
+## Technologies Used
 
-Template code is provided in the `finding_donors.ipynb` notebook file. You will also be required to use the included `visuals.py` Python file and the `census.csv` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. Note that the code included in `visuals.py` is meant to be used out-of-the-box and not intended for students to manipulate. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
+- **Python 3.8+**
+- **scikit-learn** - Machine learning algorithms
+- **pandas** - Data manipulation and analysis
+- **NumPy** - Numerical computing
+- **matplotlib** - Data visualization
+- **Jupyter Notebook** - Interactive development environment
 
-### Run
+## Installation
 
-In a terminal or command window, navigate to the top-level project directory `finding_donors/` (that contains this README) and run one of the following commands:
-
+1. Clone this repository:
 ```bash
-ipython notebook finding_donors.ipynb
-```  
-or
-```bash
-jupyter notebook finding_donors.ipynb
+git clone https://github.com/yourusername/Finding-Donors.git
+cd Finding-Donors
 ```
 
-This will open the iPython Notebook software and project file in your browser.
+2. Install required packages:
+```bash
+pip install -r requirements.txt
+```
 
-### Data
+3. Launch Jupyter Notebook:
+```bash
+jupyter notebook notebooks/finding_donors.ipynb
+```
 
-The modified census dataset consists of approximately 32,000 data points, with each datapoint having 13 features. This dataset is a modified version of the dataset published in the paper *"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid",* by Ron Kohavi. You may find this paper [online](https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf), with the original dataset hosted on [UCI](https://archive.ics.uci.edu/ml/datasets/Census+Income).
+## Dataset
 
-**Features**
-- `age`: Age
-- `workclass`: Working Class (Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked)
-- `education_level`: Level of Education (Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool)
-- `education-num`: Number of educational years completed
-- `marital-status`: Marital status (Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse)
-- `occupation`: Work Occupation (Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces)
-- `relationship`: Relationship Status (Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried)
-- `race`: Race (White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black)
-- `sex`: Sex (Female, Male)
-- `capital-gain`: Monetary Capital Gains
-- `capital-loss`: Monetary Capital Losses
-- `hours-per-week`: Average Hours Per Week Worked
-- `native-country`: Native Country (United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands)
+The project uses a modified census dataset with approximately 45,000 data points and 13 features. This dataset is derived from the 1994 U.S. Census and was originally published in Ron Kohavi's paper *"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"*.
 
-**Target Variable**
-- `income`: Income Class (<=50K, >50K)
+- **Source**: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Census+Income)
+- **Target**: Predict if income exceeds $50K annually
+- **Class Distribution**: 24.8% earn >$50K, 75.2% earn ≤$50K
+
+### Key Features
+- **Demographic**: Age, sex, race, native country
+- **Education**: Education level, years of education
+- **Employment**: Work class, occupation, hours per week
+- **Financial**: Capital gains/losses
+- **Personal**: Marital status, relationship status
+
+## Methodology
+
+### 1. Data Preprocessing
+- **Log transformation** of skewed features (capital-gain, capital-loss)
+- **MinMax normalization** of numerical features
+- **One-hot encoding** of categorical variables
+- **Train/test split**: 80/20
+
+### 2. Model Comparison
+Evaluated three supervised learning algorithms:
+- **AdaBoost Classifier**
+- **Random Forest Classifier**  
+- **Gradient Boosting Classifier** (selected)
+
+### 3. Model Optimization
+- **Grid Search** hyperparameter tuning
+- **F-score optimization** (β = 0.5) to emphasize precision
+- **Feature importance analysis**
+
+## Results Summary
+
+| Metric | Naive Predictor | Unoptimized Model | **Optimized Model** |
+|--------|----------------|-------------------|-------------------|
+| Accuracy | 24.8% | 86.3% | **86.9%** |
+| F-score | 29.2% | 74.0% | **74.8%** |
+
+### Feature Importance
+The top 5 most predictive features account for over 50% of the model's decision-making:
+1. **Age** - Strong correlation with earning potential
+2. **Education Level** - Higher education → higher income
+3. **Capital Gains** - Investment income indicator
+4. **Hours per Week** - Work commitment level
+5. **Marital Status** - Household income dynamics
+
+## Project Structure
+```
+Finding-Donors/
+├── data/
+│   └── census.csv             # Census dataset
+├── notebooks/
+│   └── finding_donors.ipynb  # Main analysis notebook
+├── src/
+│   └── visuals.py            # Visualization utilities
+├── requirements.txt          # Dependencies
+├── README.md                # Project documentation
+├── project_description.md   # Original assignment details
+└── .gitignore              # Git ignore file
+```
+
+## Learning Outcomes
+
+This project demonstrates:
+- **Data preprocessing** techniques for real-world datasets
+- **Model selection** and evaluation methodologies
+- **Hyperparameter tuning** using grid search
+- **Feature engineering** and importance analysis
+- **Performance metrics** selection for imbalanced datasets
+
+## Future Improvements
+
+- Experiment with ensemble methods combining multiple algorithms
+- Implement advanced feature selection techniques
+- Explore deep learning approaches for comparison
+- Add cross-validation for more robust model evaluation
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Udacity Machine Learning Nanodegree Program
+- Ron Kohavi for the original dataset and research
+- UCI Machine Learning Repository for hosting the dataset
